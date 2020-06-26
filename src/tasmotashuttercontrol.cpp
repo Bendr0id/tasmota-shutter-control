@@ -21,7 +21,6 @@
 #include <CLI/CLI11.hpp>
 #include <cpp-httplib/httplib.h>
 #include <rapidjson/document.h>
-#include <nfsidmap.h>
 
 constexpr char NAME[] = "Tasmota-Shutter-Control";
 constexpr char VERSION[] = "1.0";
@@ -38,7 +37,7 @@ struct Params
   int shutter = 0;
 };
 
-std::map<std::string, int> OperationPortMap =
+const static std::map<std::string, int> OperationPortMap =
 {
   {OP_UP, 1},
   {OP_DOWN, 2},
@@ -46,7 +45,7 @@ std::map<std::string, int> OperationPortMap =
   {OP_STOP, 4},
 };
 
-std::map<int, int> ShutterPortMap =
+const static std::map<int, int> ShutterPortMap =
 {
   {1, 1},
   {2, 2},
