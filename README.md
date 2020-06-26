@@ -23,6 +23,10 @@ cmake ..
 make
 ```
 
+## Soldering/Wiring:
+
+**TBD**
+
 ## Tasmota configuration:
 
 Execute the following in the console of your tasmota device line by line:
