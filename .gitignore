@@ -1,0 +1,6 @@
+.idea
+CMakeFiles
+CMakeCache.txt
+cmake_install.cmake
+tasmota-shutter-control*
+Makefile
