@@ -37,7 +37,7 @@ struct Params
   int shutter = 0;
 };
 
-const static std::map<std::string, int> OperationPortMap =
+static std::map<std::string, int> OperationPortMap =
 {
   {OP_UP, 1},
   {OP_DOWN, 2},
@@ -45,7 +45,7 @@ const static std::map<std::string, int> OperationPortMap =
   {OP_STOP, 4},
 };
 
-const static std::map<int, int> ShutterPortMap =
+static std::map<int, int> ShutterPortMap =
 {
   {1, 1},
   {2, 2},
