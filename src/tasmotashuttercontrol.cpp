@@ -114,7 +114,7 @@ std::map<int, bool> getLedStates(const std::shared_ptr<Params>& params)
   auto res = performRequest(params, "/cm?cmnd=Status%208", "");
   if (!res || res->status != 200)
   {
-    std::cerr << "Failed to getLedStates. HttpResult: " << res ? res->status : -1;
+    std::cerr << "Failed to getLedStates. HttpResult: " << (res ? res->status : -1) << "\n";
   }
   else
   {
@@ -136,7 +136,7 @@ std::map<int, bool> getLedStates(const std::shared_ptr<Params>& params)
     }
     else
     {
-      std::cerr << "Failed to getLedStates. Failed to parse json: " << res->body;
+      std::cerr << "Failed to getLedStates. Failed to parse json: " << res->body << "\n";
     }
   }
 
@@ -151,7 +151,7 @@ bool pushButton(const std::shared_ptr<Params>& params, int port)
   auto res = performRequest(params, requestUrl.str(), "");
   if (!res || res->status != 200)
   {
-    std::cerr << "Failed to pushButton. HttpResult: " << res ? res->status : -1;
+    std::cerr << "Failed to pushButton. HttpResult: " << (res ? res->status : -1) << "\n";
   }
 
   return (res && res->status == 200);
@@ -167,7 +167,7 @@ bool selectShutter(const std::shared_ptr<Params>& params)
   {
     if (!pushButton(params, OperationPortMap[OP_SELECT]) || retries > (ShutterPortMap.size() * 2))
     {
-      std::cerr << "Failed to selectShutter: " << params->shutter;
+      std::cerr << "Failed to selectShutter: " << params->shutter  << "\n";
       res = false;
       break;
     }
