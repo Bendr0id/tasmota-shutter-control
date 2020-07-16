@@ -102,6 +102,9 @@ std::shared_ptr<httplib::Response> performRequest(const std::shared_ptr<Params>&
       req.body = body;
     }
 
+#ifdef DEBUG
+    std::cout << req.method << ": " << params->ip << req.path << "\n";
+#endif
     auto res = std::make_shared<httplib::Response>();
 
     return cli->send(req, *res) ? res : nullptr;
@@ -140,6 +143,15 @@ std::map<int, bool> getLedStates(const std::shared_ptr<Params>& params)
     }
   }
 
+#ifdef DEBUG
+  for (const auto& ledState : ledStates)
+  {
+    std::cout << "LED" << ledState.first << ": " << std::to_string(ledState.second) << " ";
+  }
+
+  std::cout << "\n";
+#endif
+
   return ledStates;
 }
 
@@ -162,6 +174,8 @@ bool selectShutter(const std::shared_ptr<Params>& params)
   bool res = true;
   int retries = 0;
 
+  pushButton(params, OperationPortMap[OP_SELECT]);
+
   auto ledStates = getLedStates(params);
   while (!isLedOn(ledStates, ShutterPortMap[params->shutter]) || areAllLedsOn(ledStates))
   {
@@ -172,6 +186,7 @@ bool selectShutter(const std::shared_ptr<Params>& params)
       break;
     }
 
+    ledStates = getLedStates(params);
     retries++;
   }
 
@@ -196,6 +211,11 @@ int main(int argc, char** argv)
   if (ret)
   {
     ret = pushButton(params, OperationPortMap[params->operation]);
+  }
+
+  if (ret)
+  {
+    std::cout << "Triggered operation: " << params->operation << " on shutter: " << params->shutter << "\n";
   }
 
   return ret ? 0 : 1;
